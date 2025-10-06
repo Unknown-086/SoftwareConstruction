@@ -11,7 +11,7 @@ import org.junit.Test;
  * JUnit tests for RulesOf6005.
  */
 public class RulesOf6005Test {
-    
+
     /**
      * Tests the mayUseCodeInAssignment method.
      */
@@ -21,5 +21,16 @@ public class RulesOf6005Test {
                 RulesOf6005.mayUseCodeInAssignment(false, true, false, false, false));
         assertTrue("Expected true: self-written required code",
                 RulesOf6005.mayUseCodeInAssignment(true, false, true, true, true));
+    }
+
+    // My own Test Functions
+    @Test
+    public void testOwnWorkAllowed() {
+        assertTrue(RulesOf6005.mayUseCodeInAssignment(true, false, false, false, true));
+    }
+
+    @Test
+    public void testCopyWithoutCitationNotAllowed() {
+        assertFalse(RulesOf6005.mayUseCodeInAssignment(false, true, false, false, false));
     }
 }
