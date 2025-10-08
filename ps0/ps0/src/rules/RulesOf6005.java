@@ -55,12 +55,7 @@ public class RulesOf6005 {
         // 1. It must be available to others (publicly available)
         // 2. It must NOT be written as coursework for 6.005
         // 3. You must cite your source
-        if (!writtenByYourself) {
-            return availableToOthers && !writtenAsCourseWork && citingYourSource;
-        }
-
-        // Default case (should not reach here given the logic above)
-        return false;
+        return availableToOthers && !writtenAsCourseWork && citingYourSource;
     }
 
     /**

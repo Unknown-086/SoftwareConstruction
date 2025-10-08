@@ -33,4 +33,19 @@ public class RulesOf6005Test {
     public void testCopyWithoutCitationNotAllowed() {
         assertFalse(RulesOf6005.mayUseCodeInAssignment(false, true, false, false, false));
     }
+
+    @Test
+    public void testImplementationRequiredButNotSelfWritten() {
+        assertFalse("Cannot use others' code when implementation required",
+                RulesOf6005.mayUseCodeInAssignment(false, true, false, false, true)); // implementationRequired = true,
+                                                                                      // writtenByYourself = false
+    }
+
+    @Test
+    public void testPublicCodeWithProperCitation() {
+        assertTrue("Can use public code with citation",
+                RulesOf6005.mayUseCodeInAssignment(false, true, false, true, false)); // availableToOthers = true,
+                                                                                      // writtenAsCoursework = false,
+                                                                                      // citingYourSource = true
+    }
 }
