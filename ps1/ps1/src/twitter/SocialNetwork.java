@@ -95,7 +95,42 @@ public class SocialNetwork {
      *         descending order of follower count.
      */
     public static List<String> influencers(Map<String, Set<String>> followsGraph) {
-        throw new RuntimeException("not implemented");
+        // Create a map to count followers for each user
+        Map<String, Integer> followerCount = new HashMap<>();
+
+        // Go through the follows graph
+        for (Map.Entry<String, Set<String>> entry : followsGraph.entrySet()) {
+            String follower = entry.getKey();
+            Set<String> following = entry.getValue();
+
+            // Make sure the follower exists in the count map (even if they have 0
+            // followers)
+            if (!followerCount.containsKey(follower)) {
+                followerCount.put(follower, 0);
+            }
+
+            // For each person this user follows, increment their follower count
+            for (String followedUser : following) {
+                // Get current count for the followed user (or 0 if not in map yet)
+                int currentCount = followerCount.getOrDefault(followedUser, 0);
+                // Increment the count
+                followerCount.put(followedUser, currentCount + 1);
+            }
+        }
+
+        // Create a list of all users
+        List<String> influencerList = new ArrayList<>(followerCount.keySet());
+
+        // Sort the list by follower count in descending order
+        // We use a simple bubble sort or built-in sort with a comparator
+        influencerList.sort((user1, user2) -> {
+            int count1 = followerCount.get(user1);
+            int count2 = followerCount.get(user2);
+            // Sort in descending order (higher count first)
+            return count2 - count1;
+        });
+
+        return influencerList;
     }
 
 }
