@@ -3,6 +3,9 @@
  */
 package twitter;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -13,8 +16,10 @@ import java.util.Set;
  * A social network is represented by a Map<String, Set<String>> where map[A] is
  * the set of people that person A follows on Twitter, and all people are
  * represented by their Twitter usernames. Users can't follow themselves. If A
- * doesn't follow anybody, then map[A] may be the empty set, or A may not even exist
- * as a key in the map; this is true even if A is followed by other people in the network.
+ * doesn't follow anybody, then map[A] may be the empty set, or A may not even
+ * exist
+ * as a key in the map; this is true even if A is followed by other people in
+ * the network.
  * Twitter usernames are not case sensitive, so "ernie" is the same as "ERNie".
  * A username should appear at most once as a key in the map or in any given
  * map[A] set.
@@ -29,19 +34,55 @@ public class SocialNetwork {
      * Guess who might follow whom, from evidence found in tweets.
      * 
      * @param tweets
-     *            a list of tweets providing the evidence, not modified by this
-     *            method.
+     *               a list of tweets providing the evidence, not modified by this
+     *               method.
      * @return a social network (as defined above) in which Ernie follows Bert
      *         if and only if there is evidence for it in the given list of
      *         tweets.
      *         One kind of evidence that Ernie follows Bert is if Ernie
-     *         @-mentions Bert in a tweet. This must be implemented. Other kinds
-     *         of evidence may be used at the implementor's discretion.
-     *         All the Twitter usernames in the returned social network must be
-     *         either authors or @-mentions in the list of tweets.
+     * @-mentions Bert in a tweet. This must be implemented. Other kinds
+     *            of evidence may be used at the implementor's discretion.
+     *            All the Twitter usernames in the returned social network must be
+     *            either authors or @-mentions in the list of tweets.
      */
     public static Map<String, Set<String>> guessFollowsGraph(List<Tweet> tweets) {
-        throw new RuntimeException("not implemented");
+        // Create an empty map to store the follows graph
+        Map<String, Set<String>> followsGraph = new HashMap<>();
+
+        // Go through each tweet
+        for (Tweet tweet : tweets) {
+            // Get the author of the tweet
+            String author = tweet.getAuthor().toLowerCase();
+
+            // Create a list with just this one tweet to pass to getMentionedUsers
+            List<Tweet> singleTweetList = new ArrayList<>();
+            singleTweetList.add(tweet);
+
+            // Get all the users mentioned in this tweet
+            Set<String> mentionedUsers = Extract.getMentionedUsers(singleTweetList);
+
+            // If there are any mentioned users, add them to the follows graph
+            if (!mentionedUsers.isEmpty()) {
+                // Get or create the set of users that this author follows
+                Set<String> followedByAuthor = followsGraph.get(author);
+                if (followedByAuthor == null) {
+                    // If the author is not in the map yet, create a new set
+                    followedByAuthor = new HashSet<>();
+                    followsGraph.put(author, followedByAuthor);
+                }
+
+                // Add all mentioned users to the author's follows set
+                // But don't let users follow themselves
+                for (String mentionedUser : mentionedUsers) {
+                    String mentionedUserLower = mentionedUser.toLowerCase();
+                    if (!mentionedUserLower.equals(author)) {
+                        followedByAuthor.add(mentionedUserLower);
+                    }
+                }
+            }
+        }
+
+        return followsGraph;
     }
 
     /**
@@ -49,7 +90,7 @@ public class SocialNetwork {
      * the sense that they have the most followers.
      * 
      * @param followsGraph
-     *            a social network (as defined above)
+     *                     a social network (as defined above)
      * @return a list of all distinct Twitter usernames in followsGraph, in
      *         descending order of follower count.
      */
