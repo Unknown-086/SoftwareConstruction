@@ -1,0 +1,27 @@
+{
+    // Java Project Configuration
+    "java.project.sourcePaths": ["src"],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar"
+    ],
+    
+    // JUnit 5 Test Configuration
+    "java.test.config": {
+        "vmArgs": ["-ea"],
+        "testKind": "junit"
+    },
+    
+    // Coverage Gutters Configuration
+    "coverage-gutters.coverageFileNames": [
+        "jacoco.xml",
+        "coverage.xml",
+        "lcov.info"
+    ],
+    "coverage-gutters.showLineCoverage": true,
+    "coverage-gutters.showRulerCoverage": true,
+    "coverage-gutters.showGutterCoverage": true,
+    
+    // Auto-update build configuration
+    "java.configuration.updateBuildConfiguration": "automatic"
+}
