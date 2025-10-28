@@ -120,17 +120,16 @@ public class PermutationsCLI {
         System.out.println("Total permutations: " + results.size());
         System.out.println("Time taken: " + String.format("%.3f", durationMs) + " ms");
 
-        if (results.size() <= 24) { // Only print if reasonable number
+        if (results.size() <= 50) {
+            // Show all permutations horizontally (comma-separated)
             System.out.println("\nPermutations:");
-            for (String perm : results) {
-                System.out.println("  " + perm);
-            }
+            System.out.println(String.join(", ", results));
         } else {
-            System.out.println("\n(Too many to display - showing first 10)");
-            for (int i = 0; i < Math.min(10, results.size()); i++) {
-                System.out.println("  " + results.get(i));
-            }
-            System.out.println("  ...");
+            // Show first 50 horizontally
+            System.out.println("\n(Too many to display - showing first 50)");
+            List<String> first50 = results.subList(0, 50);
+            System.out.println(String.join(", ", first50));
+            System.out.println("...");
         }
     }
 
@@ -180,11 +179,14 @@ public class PermutationsCLI {
         System.out.println("=".repeat(60));
 
         // Show sample results
-        if (recursiveResults.size() <= 24) {
-            System.out.println("\nSample Permutations:");
-            for (int i = 0; i < Math.min(10, recursiveResults.size()); i++) {
-                System.out.println("  " + recursiveResults.get(i));
-            }
+        if (recursiveResults.size() <= 50) {
+            System.out.println("\nSample Permutations (all " + recursiveResults.size() + "):");
+            System.out.println(String.join(", ", recursiveResults));
+        } else {
+            System.out.println("\nSample Permutations (first 50 of " + recursiveResults.size() + "):");
+            List<String> first50 = recursiveResults.subList(0, 50);
+            System.out.println(String.join(", ", first50));
+            System.out.println("...");
         }
     }
 
