@@ -1,7 +1,7 @@
 # Task 3: Testing Strategy for Fraction ADT
 
 ## Overview
-This document outlines the comprehensive testing strategy for the `Fraction` ADT using partition analysis and edge case testing. All tests are implemented in `FractionTest.java` using JUnit 5.
+This document outlines the comprehensive testing strategy for the `Fraction` ADT using partition analysis and edge case testing. All tests are implemented in `FractionTest.java` using JUnit 4.
 
 ---
 
@@ -234,15 +234,19 @@ assertEquals(originalNum, f.getNumerator());
 
 ## How to Run Tests
 
-### Using Command Line (Maven):
-```bash
-mvn test
-```
+### Using VS Code:
+- Open `FractionTest.java`
+- Click the green "Run Test" button next to each test method
+- Or click "Run All Tests" at the class level
+- Use the Test Explorer (beaker icon) to view all tests
 
-### Using Command Line (with JUnit standalone):
+### Using Command Line (with JUnit 4):
 ```bash
-javac -cp .;junit-platform-console-standalone.jar FractionTest.java Fraction.java
-java -jar junit-platform-console-standalone.jar --class-path . --scan-class-path
+# Compile
+javac -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" src/Fraction.java test/FractionTest.java -d bin
+
+# Run tests
+java -cp "bin;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" org.junit.runner.JUnitCore FractionTest
 ```
 
 ### Using IDE:
@@ -253,7 +257,7 @@ java -jar junit-platform-console-standalone.jar --class-path . --scan-class-path
 
 ## Expected Results
 
-✅ **All tests should pass** if the Fraction implementation is correct.
+**All tests should pass** if the Fraction implementation is correct.
 
 If tests fail:
 1. Check the specific test method that failed
