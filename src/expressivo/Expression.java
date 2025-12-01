@@ -20,7 +20,10 @@ package expressivo;
 public interface Expression {
 
     // Datatype definition
-    // TODO
+    // Expression = Number(value:double)
+    // + Variable(name:String)
+    // + Plus(left:Expression, right:Expression)
+    // + Times(left:Expression, right:Expression)
 
     /**
      * Parse an expression.
