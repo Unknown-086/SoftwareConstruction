@@ -69,20 +69,6 @@ javac -d bin src/task2/*.java
 java -cp bin task2.ThreadSynchronizationDemo
 ```
 
-**Expected Output:**
-```
-Starting three threads to increment counter...
-
-Thread-1 completed 100 increments
-Thread-2 completed 100 increments
-Thread-3 completed 100 increments
-
-All threads completed.
-Final counter value: 300
-Expected value: 300
-✓ Synchronization successful!
-```
-
 ---
 
 ### Task 3: Concurrent Data Structures
@@ -135,28 +121,6 @@ javac -d bin src/task4/*.java
 
 # Run
 java -cp bin task4.BankTransactionSystem
-```
-
-**Expected Output:**
-```
-=== Bank Transaction System ===
-Account Number: ACC-12345
-Initial Balance: $1000.0
-
-Starting transactions with multiple clients...
-
-Client-1 deposited $45.0 | New Balance: $1045.0
-Client-2 withdrew $67.0 | New Balance: $978.0
-...
-Client-1 completed all transactions
-Client-2 completed all transactions
-Client-3 completed all transactions
-
-=== Transaction Summary ===
-All clients completed their transactions
-Final Balance: $XXX.XX
-
-✓ All transactions completed safely with synchronized methods!
 ```
 
 ---
